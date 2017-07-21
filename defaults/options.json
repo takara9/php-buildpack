@@ -13,7 +13,7 @@
     "PHP_71_LATEST": "7.1.7",
     "PHP_STRIP": true,
     "PHP_MODULES_STRIP": true,
-    "PHP_MODULES": [],
-    "PHP_EXTENSIONS": ["bz2", "zlib", "curl", "mcrypt", "mbstring"],
+    "PHP_MODULES": ["bz2", "zlib", "curl", "mcrypt", "mbstring", "pdo_mysql", "PDO"],
+    "PHP_EXTENSIONS": [],
     "ZEND_EXTENSIONS": []
 }
