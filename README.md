@@ -1,189 +1,230 @@
 # Cloud Foundry PHP Buildpack
 
-[![CF Slack](https://www.google.com/s2/favicons?domain=www.slack.com) Join us on Slack](https://cloudfoundry.slack.com/messages/buildpacks/)
+注意：この翻訳は更新しません。 最新情報は英語 https://github.com/cloudfoundry/php-buildpack を参照してください。
 
-A buildpack to deploy PHP applications to Cloud Foundry based systems, such as a [cloud provider](https://www.cloudfoundry.org/learn/certified-providers/) or your own instance.
 
-### Buildpack User Documentation
+## CF Slack 
+[![CF Slack](https://www.google.com/s2/favicons?domain=www.slack.com) CF Slack Slackに参加しよう](https://cloudfoundry.slack.com/messages/buildpacks/)
 
-Official buildpack documentation can be found at [php buildpack docs](http://docs.cloudfoundry.org/buildpacks/php/index.html.
+クラウド・プロバイダーや独自のインスタンスなどのCloud FoundryベースのシステムにPHPアプリケーションをデプロイするためのビルドパックです。
 
-### Building the Buildpack
 
-1. Make sure you have fetched submodules
+## ビルドパックのユーザーマニュアル
 
-  ```bash
-  git submodule update --init
-  ```
+公式ビルドパックのドキュメントは、[php buildpack docs]（http://docs.cloudfoundry.org/buildpacks/php/index.html）にあります。
 
-1. Get latest buildpack dependencies
 
-  ```shell
-  BUNDLE_GEMFILE=cf.Gemfile bundle
-  ```
+## ビルパックの構築
 
-1. Build the buildpack
+GitHub からサブモジュールを取得したことを確認するには次のコマンドを実行する
 
-  ```shell
-  BUNDLE_GEMFILE=cf.Gemfile bundle exec buildpack-packager [ --uncached | --cached ]
-  ```
+~~
+git submodule update --init
+~~
 
-1. Use in Cloud Foundry
+最新のビルドパックの依存パッケージを取得する
 
-    Upload the buildpack to your Cloud Foundry instance and optionally specify it by name
+~~
+BUNDLE_GEMFILE=cf.Gemfile bundle
+~~
 
-    ```bash
-    cf create-buildpack custom_php_buildpack php_buildpack-cached-custom.zip 1
-    cf push my_app -b custom_php_buildpack
-    ```
 
-### Contributing
-Find our guidelines [here](https://github.com/cloudfoundry/php-buildpack/blob/develop/CONTRIBUTING.md).
+ビルドパックをビルドする
 
-### Integration Tests
-Buildpacks use the [Machete](https://github.com/cloudfoundry/machete) framework for running integration tests.
+~~
+BUNDLE_GEMFILE=cf.Gemfile bundle exec buildpack-packager [ --uncached | --cached ]
+~~
+                    
 
-To test a buildpack, run the following command from the buildpack's directory:
+Cloud Foundryの中で実行する
 
-```
+buildpackをCloud Foundryインスタンスにアップロードし、オプションで名前を指定します。 **Bluemixでは利用できません**
+
+~~
+cf create-buildpack custom_php_buildpack php_buildpack-cached-custom.zip 1
+cf push my_app -b custom_php_buildpack
+~~
+          
+
+## 寄贈
+
+ガイドラインを[ここ](https://github.com/cloudfoundry/php-buildpack/blob/develop/CONTRIBUTING.md)から探してください。
+
+
+## 統合テスト
+
+ビルドパックは統合テストを実行するために[Machete](https://github.com/cloudfoundry/machete)フレームワークを使用します。
+
+ビルドパックをテストするには、ビルドパックのディレクトリから次のコマンドを実行します。 **CloudFoundry CLIが必要です**
+
+~~
 BUNDLE_GEMFILE=cf.Gemfile bundle exec buildpack-build
-```
+~~
 
-### Unit Tests
 
-```bash
-./run_tests.sh
-```
+## ユニットテスト
 
-### Requirements
- 1. [PyEnv] - This will allow you to easily install Python 2.6.6, which is the same version available through the staging environment of CloudFoundry.
- 1. [virtualenv] & [pip] - The buildpack uses virtualenv and pip to setup the [required packages].  These are used by the unit test and not required by the buildpack itself.
+~~
+./run_test.sh
+~~
 
-### Setup
-```bash
+
+
+## 要件
+
+[PyEnv] - Python 2.6.6を簡単にインストールできます。Python 2.6.6は、CloudFoundryのステージング環境で使用できるものと同じバージョンです。
+
+[virtualenv]＆[pip] - buildpackは virtualenv と pip を使って必要なパッケージをセットアップします。 これらはユニットテストで使用され、ビルドパック自体では必要ありません。
+
+
+## セットアップ
+
+~~
 git clone https://github.com/cloudfoundry/php-buildpack
 cd php-buildpack
 python -V  # should report 2.6.6, if not fix PyEnv before creating the virtualenv
 virtualenv `pwd`/env
 . ./env/bin/activate
 pip install -r requirements.txt
-```
+~~
 
-### Project Structure
 
-The project is broken down into the following directories:
 
-  - `bin` contains executable scripts, including `compile`, `release` and `detect`
-  - `defaults` contains the default configuration
-  - `docs` contains project documentation
-  - `extensions` contains non-core extensions
-  - `env` virtualenv environment
-  - `lib` contains core extensions, helper code and the buildpack utils
-  - `scripts` contains the Python scripts that run on compile, release and detect
-  - `tests` contains test scripts and test data
-  - `run_tests.sh` a convenience script for running the full suite of tests
 
-### Understanding the Buildpack
+## プロジェクトの構成
 
-The easiest way to understand the buildpack is to trace the flow of the scripts.  The buildpack system calls the `compile`, `release` and `detect` scripts provided by the buildpack.  These are located under the `bin` directory and are generic.  They simply redirect to the corresponding Python script under the `scripts` directory.
+プロジェクトは以下のディレクトリに分かれています：
 
-Of these, the `detect` and `release` scripts are straightforward, providing the minimal functionality required by a buildpack.  The `compile` script is more complicated but works like this.
+* bin：compile, release, detect のスクリプトが含まれています。
+* defaults：デフォルト設定
+* docs：プロジェクトのドキュメント
+* extensions：非コア拡張
+* env：virtualenv環境
+* lib：コア拡張、ヘルパーコード、buildpackユーティリティを含む
+* scripts：compile, release, detect に必要なPythonスクリプトが含まれています。
+* test：テスト・スクリプトとテスト・データ
+* run_tests.sh：完全な一連のテストを実行するための便利なスクリプト
 
-  - load configuration
-  - setup the `WEBDIR` directory
-  - install the buildpack utils and the core extensions (HTTPD, Nginx & PHP)
-  - install other extensions
-  - install the `rewrite` and `start` scripts
-  - setup the runtime environment and process manager
-  - generate a startup.sh script
 
-In general, you shouldn't need to modify the buildpack itself.  Instead creating an extension should be the way to go.
 
-### Extensions
+## ビルドパックの理解
 
-The buildpack relies heavily on extensions.  An extension is simply a set of Python methods that will get called at various times during the staging process.  
+ビルドパックを理解する最も簡単な方法は、スクリプトの流れをトレースすることです。 buildpackシステムは、buildpackによって提供されたcompile, release そして、detect スクリプトを呼び出します。 これらは、一般的にbinディレクトリの下にあります。 スクリプト・ディレクトリの対応するPythonスクリプトにリダイレクトされます。
 
-### Creation
+これらのうち、detectスクリプトと releaseスクリプトは、簡単でビルドパックで必要とされる最小の機能を提供します。 compileスクリプトはもっと複雑ですが、このように動作します。
 
-To create an extension, simply create a folder.  The name of the folder will be the extension.  Inside that folder, create a file called `extension.py`. That file will contain your code.  Inside that file, put your extension methods and any additional required code.
+* 負荷設定
+* WEBDIRディレクトリを設定
+* buildpack utilsとコア拡張（HTTPD、Nginx＆PHP）のインストール
+* 他の拡張機能をインストール
+* 書き換えスクリプト、および、インストールスクリプト のインストール
+* 実行時環境とプロセスマネージャをセットアップ
+* startup.shスクリプトを生成
 
-### Methods
+一般的に、ビルドパック自体を変更する必要はありません。 代わりに拡張機能を作成が必要です。
 
-Here is an explanation of the methods offered to an extension developer.  All of them are optional and if a method is not implemented, it is simply skipped.
 
-```python
+## 拡張機能
+
+ビルドパックは、拡張機能に大きく依存しています。 拡張機能はPythonメソッドのセットで、単にステージングプロセス中にさまざまな時に呼び出されます。
+
+
+## 作成方法
+
+拡張機能を作成するには、単にフォルダを作成します。 フォルダの名前が拡張子になります。 そのフォルダの中に、extension.pyという名前のファイルを作成します。 そのファイルにはコードが含まれます。 そのファイルの中に、拡張メソッドと必要なコードを追加します。
+
+### configure(ctx):
+
+~~
 def configure(ctx):
     pass
-```
-
-The `configure` method gives extension authors a chance to adjust the configuration of the buildpack prior to *any* extensions running.  The method is called very early on in the lifecycle of the buildpack, so keep this in mind when using this method.  The purpose of this method is to allow an extension author the opportunity to modify the configuration for PHP, the web server or another extension prior to those components being installed.  
-
-An example of when to use this method would be to adjust the list of PHP extensions that are going to be installed.
-
-The method takes one argument, which is the buildpack context.  You can edit the context to update the state of the buildpack.  Return value is ignore / not necessary.
+~~
 
 
-```python
+configureメソッドは、拡張機能の作成者に、拡張機能が実行される前にビルドパックの設定を調整する機会を与えます。 このメソッドは、ビルドパックのライフサイクルの早い段階で呼び出されます。このメソッドを使用する場合は、この点に注意してください。 このメソッドの目的は、拡張機能の作成者がPHP、Webサーバー、またはそれらのコンポーネントがインストールされる前の別の拡張機能の設定を変更できるようにすることです。
+
+このメソッドを使用する例は、インストールされるPHP拡張モジュールのリストを調整することです。
+
+このメソッドはbuildpackコンテキストである1つの引数をとります。 コンテキストを編集してビルドパックの状態を更新することができます。 戻り値は無視/不要です。
+
+### preprocess_commands(ctx):
+
+~~
 def preprocess_commands(ctx):
     return ()
-```
+~~
 
-The `preprocess_commands` method gives extension authors the ability to contribute a list of commands that should be run prior to the services.  These commands are run in the execution environment, not the staging environment and should execute and complete quickly.  The purpose of these commands is to give extension authors the chance to run any last-minute code to adjust to the environment.
 
-As an example, this is used by the core extensions rewrite configuration files with information that is specific to the runtime environment.
+preprocess_commandsメソッドは、拡張機能の作成者に、サービスに先立って実行すべきコマンドのリストを提供する機能を提供します。 これらのコマンドは、ステージング環境ではなく実行環境で実行されるため、すばやく実行して完了する必要があります。 これらのコマンドの目的は、拡張者の作者に環境に合わせるための最後のコードを実行する機会を与えることです。
 
-The method takes the context as an argument and should return a tuple of tuples (i.e. list of commands to run).
+例として、これは、コア拡張機能によって、構成ファイルを実行時環境固有の情報で書き換えることによって使用されます。
 
-```python
+このメソッドはコンテキストを引数として取り、タプルのタプル（つまり、実行するコマンドのリスト）を返す必要があります。
+
+
+### service_commands(ctx):
+
+~~
 def service_commands(ctx):
     return {}
-```
+~~
 
-The `service_commands` method gives extension authors the ability to contribute a set of services that need to be run.  These commands are run and should continue to run.  If any service exits, the process manager will halt all of the other services and the application will be restarted by Cloud Foundry.
+service_commandsメソッドは、拡張の作成者に、実行する必要のある一連のサービスを提供します。 これらのコマンドは実行され、実行を続行する必要があります。 サービスが終了すると、プロセスマネージャーは他のすべてのサービスを停止し、Cloud Foundryによってアプリケーションが再開されます。
 
-The method takes the context as an argument and should return a dictionary of services to run.  The key should be the service name and the value should be a tuple which is the command and arguments.
+このメソッドはコンテキストを引数として取り、実行するサービスの辞書を返す必要があります。 キーはサービス名でなければならず、値はコマンドと引数であるタプルでなければなりません。
 
-```python
+
+### service_environment(ctx):
+
+~~
 def service_environment(ctx):
     return {}
-```
+~~
 
-The `service_environment` method gives extension authors the ability to contribute environment variables that will be set and available to the services.
 
-The method takes the buildpack context as its argument and should return a dictionary of the environment variables to be added to the environment where services (see `service_commands`) are executed.  
+service_environmentメソッドは、拡張機能の作成者に、サービスで設定および使用できる環境変数を提供する機能を提供します。
 
-The key should be the variable name and the value should be the value.  The value can either be a string, in which case the environment variable will be set with the value of the string or it can be a list.
+このメソッドは、引数としてbuildpackコンテキストをとり、サービス（service_commandsを参照）が実行される環境に追加される環境変数の辞書を返す必要があります。
 
-If it's a list, the contents will be combined into a string and separated by the path separation character (i.e. ':' on Unix / Linux or ';' on Windows).  Keys that are set multiple times by the same or different extensions are automatically combined into one environment variable using the same path separation character.  This is helpful when two extensions both want to contribute to the same variable, for example LD_LIBRARY_PATH.
+キーは変数名でなければならず、値は値でなければなりません。値は文字列にすることができます。この場合、環境変数には文字列の値を設定するか、リストにすることができます。
 
-Please note that environment variables are not evaluated as they are set.  This would not work because they are set in the staging environment which is different than the execution environment.  This means you cannot do things like `PATH=$PATH:/new/path` or `NEWPATH=$HOME/some/path`.  To work around this, the buildpack will rewrite the environment variable file before it's processed.  This process will replace any `@<env-var>` markers with the value of the environment variable from the execution environment.  Thus if you do `PATH=@PATH:/new/path` or `NEWPATH=@HOME/some/path`, the service end up with a correctly set `PATH` or `NEWPATH`.
+リストの場合、内容は文字列に結合され、パス分離文字（Unix / Linuxでは '：'、Windowsでは ';'）で区切られます。同一または異なる拡張機能によって複数回設定されたキーは、同じパス区切り文字を使用して1つの環境変数に自動的に結合されます。これは、2つの拡張が両方とも同じ変数に寄与したい場合（LD_LIBRARY_PATHなど）に役立ちます。
 
-```python
+環境変数は、設定されると評価されないことに注意してください。これは、実行環境とは異なるステージング環境に設定されているため動作しません。つまり、PATH = $ PATH：/ new / pathやNEWPATH = $ HOME / some / pathのようなことはできません。この問題を回避するために、ビルドパックは処理される前に環境変数ファイルを書き換えます。このプロセスは、@ <env-var>マーカーを実行環境の環境変数の値に置き換えます。したがって、PATH = @ PATH：/ new / pathまたはNEWPATH = @ HOME / some / pathを実行すると、サービスは正しく設定されたPATHまたはNEWPATHで終了します。
+
+
+### compile(install):
+
+~~
 def compile(install):
     return 0
-```
+~~
 
-The `compile` method is the main method and where extension authors should perform the bulk of their logic.  This method is called  by the buildpack while it's installing extensions.
 
-The method is given one argument which is an Installer builder object.  The object can be used to install packages, configuration files or access the context (for examples of all this, see the core extensions like [HTTPD], [Nginx], [PHP], [Dynatrace] and [NewRelic]).  The method should return 0 when successful or any other number when it fails.  Optionally, the extension can raise an exception.  This will also signal a failure and it can provide more details about why something failed.
+compileメソッドは主な方法であり、拡張作成者はそのロジックの大部分を実行する必要があります。 このメソッドは、拡張機能をインストールする際にbuildpackから呼び出されます。
 
-### Method Order
+このメソッドにはインストーラビルダオブジェクトである1つの引数が与えられます。 このオブジェクトは、パッケージ、設定ファイルのインストール、コンテキストへのアクセス（HTTPD、Nginx、PHP、Dynatrace、NewRelicなどのコア拡張を参照してください）に使用できます。 成功すると0を返し、失敗した場合はそれを返します。 必要に応じて、拡張機能は例外を発生させることができます。 これはまた、失敗を通知し、何かが失敗した理由の詳細を提供することができます。
 
-It is sometimes useful to know what order the buildpack will use to call the methods in an extension.  They are called in the following order.
 
-1. `configure`
-2. `compile`
-3. `service_environment`
-4. `service_commands`
-5. `preprocess_commands`
 
-#### Example
+## メソッドの順序
 
-Here is an example extension.  While technically correct, it doesn't actually do anything.
+ビルドパックがエクステンション内のメソッドを呼び出すためにどのような順序で使用するかを知ることは時々役に立ちます。 次の順序で呼び出されます。
 
-Here's the directory.
+1. configure
+2. compile
+3. service_environment
+4. service_commands
+5. preprocess_commands
+    
+      
+### メソッドのコール例
 
-```bash
+ここに拡張の例を示します。 技術的には正しいものの、実際には何もしません。
+
+次が、そのディレクトリです。
+
+~~
 $ ls -lRh
 total 0
 drwxr-xr-x  3 daniel  staff   102B Mar  3 10:57 testextn
@@ -191,11 +232,12 @@ drwxr-xr-x  3 daniel  staff   102B Mar  3 10:57 testextn
 ./testextn:
 total 8
 -rw-r--r--  1 daniel  staff   321B Mar  3 11:03 extension.py
-```
+~~
 
-Here's the code.
 
-```python
+次が、そのコードです。
+
+~~
 import logging
 
 _log = logging.getLogger('textextn')
@@ -215,18 +257,20 @@ def service_environment(ctx):
 
 def compile(install):
     return 0
-```
+~~
 
-### Tips
 
- 1. To be consistent with the rest of the buildpack, extensions should import and use the standard logging module.  This will allow extension output to be incorporated into the output for the rest of the buildpack.
- 1. The buildpack will run every extension that is included with the buildpack and the application.  There is no mechanism to disable specific extensions.  Thus, when you write an extension, you should make some way for the user to enable / disable it's functionality.  See the [NewRelic] extension for an example of this.
- 1. If an extension requires configuration, it should be included with the extension.  The `defaults/options.json` file is for the buildpack and its core extensions.  See the [NewRelic] buildpack for an example of this.
- 1. Extensions should have their own test module.  This generally takes the form `tests/test_<extension_name>.py`.
- 1. Run [bosh-lite].  It'll speed up testing and allow you to inspect the environment manually, if needed.
- 1. Run a local web server for your binaries.  It'll seriously speed up download times.
- 1. Test, test and test again.  Create unit and integration tests for your code and extensions.  This gives you quick and accurate feedback on your code.  It also makes it easier for you to make changes in the future and be confident that you're not breaking stuff.
- 1. Check your code with flake8.  This linting tool can help to detect problems quickly.
+## Tips
+
+1.ビルドパックの他の部分と一貫性を持たせるために、拡張モジュールは標準ロギングモジュールをインポートして使用する必要があります。これにより、ビルドパックの残りの部分の出力に拡張出力を組み込むことができます。
+2. buildpackは、buildpackとアプリケーションに含まれるすべての拡張機能を実行します。特定の拡張機能を無効にするメカニズムはありません。したがって、拡張機能を記述するときは、その機能を有効/無効にするための方法をいくつか作成する必要があります。この例については、NewRelic拡張モジュールを参照してください。
+3.拡張機能に設定が必要な場合は、拡張機能に含める必要があります。 defaults / options.jsonファイルはビルドパックとそのコア拡張です。これの例は、NewRelicビルドパックを参照してください。
+4.拡張モジュールには独自のテストモジュールが必要です。これは一般的に、tests / test_ <extension_name> .pyという形式です。
+5. bosh-liteを実行します。テストを高速化し、必要に応じて手動で環境を検査できるようにします。
+6.バイナリ用のローカルWebサーバーを実行します。ダウンロード時間が大幅に短縮されます。
+7.テスト、テスト、テストをもう一度行います。コードと拡張機能のユニットテストと統合テストを作成します。これにより、コードに対して迅速かつ正確なフィードバックが得られます。また、将来的に変更を加えることが容易になり、物事を破壊していないと確信することができます。
+8. flake8でコードをチェックします。このリンティングツールは、問題を迅速に検出するのに役立ちます。
+
 
 [PyEnv]:https://github.com/yyuu/pyenv
 [virtualenv]:http://www.virtualenv.org/en/latest/
@@ -240,17 +284,21 @@ def compile(install):
 [NewRelic]:https://github.com/cloudfoundry/php-buildpack/tree/master/extensions/newrelic
 [unit tests]:https://github.com/cloudfoundry/php-buildpack/blob/master/docs/development.md#testing
 
-### Help and Support
 
-Join the #buildpacks channel in our [Slack community](http://slack.cloudfoundry.org/) 
+## ヘルプとサポート
 
-### Reporting Issues
+Slackコミュニティの#buildpacksチャンネルに参加する [Slack community](http://slack.cloudfoundry.org/) 
 
-This project is managed through GitHub.  If you encounter any issues, bug or problems with the buildpack please open an issue.
 
-### Active Development
 
-The project backlog is on [Pivotal Tracker](https://www.pivotaltracker.com/projects/1042066)
+## 報告の問題
+
+このプロジェクトはGitHubを通じて管理されています。 何か問題が発生した場合、バグやビルドに関する問題が発生した場合は、問題をオープンしてください。
+
+
+## アクティブな開発
+
+プロジェクトのバックログは[Pivotal Tracker](https://www.pivotaltracker.com/projects/1042066)にあります
 
 [Configuration Options]:https://github.com/cloudfoundry/php-buildpack/blob/master/docs/config.md
 [Development]:https://github.com/cloudfoundry/php-buildpack/blob/master/docs/development.md
@@ -274,5 +322,8 @@ The project backlog is on [Pivotal Tracker](https://www.pivotaltracker.com/proje
 [Phalcon]:http://phalconphp.com/en/
 [composer]:https://github.com/dmikusa-pivotal/cf-ex-composer
 [Proxy Support]:http://docs.cloudfoundry.org/buildpacks/proxy-usage.html
+
+
+
 
 
