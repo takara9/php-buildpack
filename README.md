@@ -18,32 +18,32 @@
 
 GitHub からサブモジュールを取得したことを確認するには次のコマンドを実行する
 
-~~
+~~~
 git submodule update --init
-~~
+~~~
 
 最新のビルドパックの依存パッケージを取得する
 
-~~
+~~~
 BUNDLE_GEMFILE=cf.Gemfile bundle
-~~
+~~~
 
 
 ビルドパックをビルドする
 
-~~
+~~~
 BUNDLE_GEMFILE=cf.Gemfile bundle exec buildpack-packager [ --uncached | --cached ]
-~~
+~~~
                     
 
 Cloud Foundryの中で実行する
 
 buildpackをCloud Foundryインスタンスにアップロードし、オプションで名前を指定します。 **Bluemixでは利用できません**
 
-~~
+~~~
 cf create-buildpack custom_php_buildpack php_buildpack-cached-custom.zip 1
 cf push my_app -b custom_php_buildpack
-~~
+~~~
           
 
 ## 寄贈
@@ -57,16 +57,16 @@ cf push my_app -b custom_php_buildpack
 
 ビルドパックをテストするには、ビルドパックのディレクトリから次のコマンドを実行します。 **CloudFoundry CLIが必要です**
 
-~~
+~~~
 BUNDLE_GEMFILE=cf.Gemfile bundle exec buildpack-build
-~~
+~~~
 
 
 ## ユニットテスト
 
-~~
+~~~
 ./run_test.sh
-~~
+~~~
 
 
 
@@ -79,14 +79,14 @@ BUNDLE_GEMFILE=cf.Gemfile bundle exec buildpack-build
 
 ## セットアップ
 
-~~
+~~~
 git clone https://github.com/cloudfoundry/php-buildpack
 cd php-buildpack
 python -V  # should report 2.6.6, if not fix PyEnv before creating the virtualenv
 virtualenv `pwd`/env
 . ./env/bin/activate
 pip install -r requirements.txt
-~~
+~~~
 
 
 
@@ -135,10 +135,10 @@ pip install -r requirements.txt
 
 ### configure(ctx):
 
-~~
+~~~
 def configure(ctx):
     pass
-~~
+~~~
 
 
 configureメソッドは、拡張機能の作成者に、拡張機能が実行される前にビルドパックの設定を調整する機会を与えます。 このメソッドは、ビルドパックのライフサイクルの早い段階で呼び出されます。このメソッドを使用する場合は、この点に注意してください。 このメソッドの目的は、拡張機能の作成者がPHP、Webサーバー、またはそれらのコンポーネントがインストールされる前の別の拡張機能の設定を変更できるようにすることです。
@@ -149,10 +149,10 @@ configureメソッドは、拡張機能の作成者に、拡張機能が実行�
 
 ### preprocess_commands(ctx):
 
-~~
+~~~
 def preprocess_commands(ctx):
     return ()
-~~
+~~~
 
 
 preprocess_commandsメソッドは、拡張機能の作成者に、サービスに先立って実行すべきコマンドのリストを提供する機能を提供します。 これらのコマンドは、ステージング環境ではなく実行環境で実行されるため、すばやく実行して完了する必要があります。 これらのコマンドの目的は、拡張者の作者に環境に合わせるための最後のコードを実行する機会を与えることです。
@@ -164,10 +164,10 @@ preprocess_commandsメソッドは、拡張機能の作成者に、サービス�
 
 ### service_commands(ctx):
 
-~~
+~~~
 def service_commands(ctx):
     return {}
-~~
+~~~
 
 service_commandsメソッドは、拡張の作成者に、実行する必要のある一連のサービスを提供します。 これらのコマンドは実行され、実行を続行する必要があります。 サービスが終了すると、プロセスマネージャーは他のすべてのサービスを停止し、Cloud Foundryによってアプリケーションが再開されます。
 
@@ -176,10 +176,10 @@ service_commandsメソッドは、拡張の作成者に、実行する必要の�
 
 ### service_environment(ctx):
 
-~~
+~~~
 def service_environment(ctx):
     return {}
-~~
+~~~
 
 
 service_environmentメソッドは、拡張機能の作成者に、サービスで設定および使用できる環境変数を提供する機能を提供します。
@@ -195,10 +195,10 @@ service_environmentメソッドは、拡張機能の作成者に、サービス�
 
 ### compile(install):
 
-~~
+~~~
 def compile(install):
     return 0
-~~
+~~~
 
 
 compileメソッドは主な方法であり、拡張作成者はそのロジックの大部分を実行する必要があります。 このメソッドは、拡張機能をインストールする際にbuildpackから呼び出されます。
@@ -224,7 +224,7 @@ compileメソッドは主な方法であり、拡張作成者はそのロジッ�
 
 次が、そのディレクトリです。
 
-~~
+~~~
 $ ls -lRh
 total 0
 drwxr-xr-x  3 daniel  staff   102B Mar  3 10:57 testextn
@@ -232,12 +232,12 @@ drwxr-xr-x  3 daniel  staff   102B Mar  3 10:57 testextn
 ./testextn:
 total 8
 -rw-r--r--  1 daniel  staff   321B Mar  3 11:03 extension.py
-~~
+~~~
 
 
 次が、そのコードです。
 
-~~
+~~~
 import logging
 
 _log = logging.getLogger('textextn')
@@ -257,7 +257,7 @@ def service_environment(ctx):
 
 def compile(install):
     return 0
-~~
+~~~
 
 
 ## Tips
