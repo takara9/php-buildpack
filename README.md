@@ -279,17 +279,17 @@ def compile(install):
 8. flake8でコードをチェックします。このリンティングツールは、問題を迅速に検出するのに役立ちます。
 
 
-[PyEnv]:https://github.com/yyuu/pyenv
-[virtualenv]:http://www.virtualenv.org/en/latest/
-[pip]:http://www.pip-installer.org/en/latest/
-[required packages]:https://github.com/cloudfoundry/php-buildpack/blob/master/requirements.txt
-[bosh-lite]:https://github.com/cloudfoundry/bosh-lite
-[HTTPD]:https://github.com/cloudfoundry/php-buildpack/tree/master/lib/httpd
-[Nginx]:https://github.com/cloudfoundry/php-buildpack/tree/master/lib/nginx
-[PHP]:https://github.com/cloudfoundry/php-buildpack/tree/master/lib/php
-[Dynatrace]:https://github.com/cloudfoundry/php-buildpack/tree/master/extensions/dynatrace
-[NewRelic]:https://github.com/cloudfoundry/php-buildpack/tree/master/extensions/newrelic
-[unit tests]:https://github.com/cloudfoundry/php-buildpack/blob/master/docs/development.md#testing
+* [PyEnv](https://github.com/yyuu/pyenv)
+* [virtualenv](http://www.virtualenv.org/en/latest/)
+* [pip](http://www.pip-installer.org/en/latest/)
+* [required packages](https://github.com/cloudfoundry/php-buildpack/blob/master/requirements.txt)
+* [bosh-lite](https://github.com/cloudfoundry/bosh-lite)
+* [HTTPD](https://github.com/cloudfoundry/php-buildpack/tree/master/lib/httpd)
+* [Nginx](https://github.com/cloudfoundry/php-buildpack/tree/master/lib/nginx)
+* [PHP](https://github.com/cloudfoundry/php-buildpack/tree/master/lib/php)
+* [Dynatrace](https://github.com/cloudfoundry/php-buildpack/tree/master/extensions/dynatrace)
+* [NewRelic](https://github.com/cloudfoundry/php-buildpack/tree/master/extensions/newrelic)
+* [unit tests](https://github.com/cloudfoundry/php-buildpack/blob/master/docs/development.md#testing)
 
 
 ## ヘルプとサポート
