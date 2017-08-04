@@ -11,7 +11,7 @@
 
 ## ビルドパックのユーザーマニュアル
 
-公式ビルドパックのドキュメントは、[php buildpack docs]（http://docs.cloudfoundry.org/buildpacks/php/index.html）にあります。
+公式ビルドパックのドキュメントは、[php buildpack docs]（ http://docs.cloudfoundry.org/buildpacks/php/index.html ）にあります。
 
 
 ## ビルパックの構築
