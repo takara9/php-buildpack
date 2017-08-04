@@ -74,8 +74,8 @@ dependencies:
   md5: ebe0649419b5192d39a6c075b3de7ab4
 - name: php
   version: 5.6.30
-  uri: https://buildpacks.cloudfoundry.org/dependencies/php7/php7-7.0.21-linux-x64-967375bc.tgz
-  md5: 007375bc94f2dfe0989120354161d8fa
+  uri: https://12248.http.tok02.cdn.softlayer.net/test/php-5.6.30-linux-x64-ef729cf7.tgz
+  md5: f729cf7f27680a1be39a1875067e24c
   cf_stacks:
   - cflinuxfs2
   modules:
