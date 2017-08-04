@@ -74,7 +74,8 @@ dependencies:
   md5: ebe0649419b5192d39a6c075b3de7ab4
 - name: php
   version: 5.6.30
-  uri: https://12248.http.tok02.cdn.softlayer.net/test/php-5.6.30-linux-x64-ef729cf7.tgz
+  uri: http://12248.http.tok02.cdn.softlayer.net/test/php-5.6.30-linux-x64-ef729cf7.tgz
+  md5: ef729cf7f27680a1be39a1875067e24c
   cf_stacks:
   - cflinuxfs2
   modules:
