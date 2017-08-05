@@ -441,7 +441,7 @@ dependencies:
   cf_stacks:
   - cflinuxfs2
 - name: php
-  version: 5.6.30db2
+  version: 5.6.30.7
   uri: https://tok02.objectstorage.softlayer.net/v1/AUTH_00bf93fa-3b76-4d23-8485-1964107dfa6c/test/php-5.6.30-linux-x64-db2-7.tgz
   md5: 92cfd5ae7541cbae7e06d4dfdec93afc
   cf_stacks:
