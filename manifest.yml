@@ -143,8 +143,8 @@ dependencies:
   - zlib
 - name: php
   version: 5.6.31
-  uri: https://buildpacks.cloudfoundry.org/dependencies/php/php-5.6.31-linux-x64-c495c457.tgz
-  md5: c495c4570e13ed32b0071a664f973a46
+  uri: https://dal05.objectstorage.softlayer.net/v1/AUTH_00bf93fa-3b76-4d23-8485-1964107dfa6c/buildpack_ext/php-5.6.31-db2.tgz
+  md5: db1ad1b1c38ba7dbbf23aae784d773f1
   cf_stacks:
   - cflinuxfs2
   modules:
