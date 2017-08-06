@@ -144,7 +144,7 @@ dependencies:
 - name: php
   version: 5.6.31
   uri: https://dal05.objectstorage.softlayer.net/v1/AUTH_00bf93fa-3b76-4d23-8485-1964107dfa6c/buildpack_ext/php-5.6.31-db2-3.tgz
-  md5: ec15b821629d87a14ef3300d45b83b9c
+  md5: e83728bead66f1c293f2de64cfe2e719
   cf_stacks:
   - cflinuxfs2
   modules:
